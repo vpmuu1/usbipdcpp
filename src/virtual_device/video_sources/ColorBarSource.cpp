@@ -1,3 +1,18 @@
+/*
+    ffmpeg -re -i output_640x480.mp4 \
+-vf "\
+split[main][tmp];\
+[tmp]reverse,trim=start_frame=1:end_frame=10,reverse,loop=loop=-1:size=9:start=0,setpts=N/30/TB[end];\
+[main][end]concat=n=2:v=1,\
+drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf:text='%{localtime}':fontsize=28:fontcolor=yellow:box=1:boxcolor=black@0.6:x=10:y=10[base];\
+nullsrc=s=160x90:r=30,noise=alls=40:allf=t+u,format=yuva420p[noise];\
+[base][noise]overlay=W-w-10:10" \
+-f rawvideo -pix_fmt yuyv422 -an /tmp/yuy2.fifo
+
+
+*/
+
+
 #include "usbipdcpp/virtual_device/video_sources/ColorBarSource.h"
 #include "usbipdcpp/virtual_device/UvcConstants.h"
 
